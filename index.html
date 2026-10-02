@@ -22,6 +22,7 @@
   --rosa:#E0156F; --rosa-d:#A60C51; --sol:#F59312; --sol-d:#BF6A00; --jade:#0B9C84; --jade-d:#06705E;
   --azul:#2D4BD2; --azul-d:#1B308E; --chile:#DD3A24; --chile-d:#A1230F;
   --good:#15A34A; --good-d:#0E7434; --good-bg:#DCF6E5; --bad:#D92E3B; --bad-d:#A11F2A; --bad-bg:#FDE2E4;
+  --good-t:#0E7434; --bad-t:#A11F2A; --hot-a:color-mix(in srgb,var(--sol-d) 82%,#000); --hot-b:var(--chile-d); --hot-c:var(--rosa-d);
   --on-color:#FFFFFF; --on-sol:#2B1500; --lock:#CBD1E4; --lock-d:#AAB2CD;
   --hi:rgba(255,255,255,.8); --glass:rgba(255,255,255,.72); --grain:.05; --blob:30%;
   --shadow:0 1px 0 var(--hi) inset,0 1px 2px rgba(21,28,70,.06),0 16px 36px -14px rgba(21,28,70,.24);
@@ -36,6 +37,7 @@
   --rosa:#FF4A98; --rosa-d:#B3195E; --sol:#FFAD3A; --sol-d:#B87414; --jade:#27CFAF; --jade-d:#0F806B;
   --azul:#7690FF; --azul-d:#3549B8; --chile:#FF6B4E; --chile-d:#B33A22;
   --good:#3FDB85; --good-d:#1E9A57; --good-bg:#10362A; --bad:#FF5B66; --bad-d:#B8323C; --bad-bg:#3B1522;
+  --good-t:var(--good); --bad-t:var(--bad); --hot-a:var(--sol); --hot-b:var(--chile); --hot-c:var(--rosa);
   --on-color:#0C1030; --on-sol:#0C1030; --lock:#2E3570; --lock-d:#222861;
   --hi:rgba(255,255,255,.07); --glass:rgba(19,24,64,.72); --grain:.07; --blob:34%;
   --shadow:0 1px 0 var(--hi) inset,0 1px 2px rgba(0,0,0,.35),0 18px 38px -14px rgba(0,0,0,.6);
@@ -47,6 +49,7 @@
   --rosa:#FF4A98; --rosa-d:#B3195E; --sol:#FFAD3A; --sol-d:#B87414; --jade:#27CFAF; --jade-d:#0F806B;
   --azul:#7690FF; --azul-d:#3549B8; --chile:#FF6B4E; --chile-d:#B33A22;
   --good:#3FDB85; --good-d:#1E9A57; --good-bg:#10362A; --bad:#FF5B66; --bad-d:#B8323C; --bad-bg:#3B1522;
+  --good-t:var(--good); --bad-t:var(--bad); --hot-a:var(--sol); --hot-b:var(--chile); --hot-c:var(--rosa);
   --on-color:#0C1030; --on-sol:#0C1030; --lock:#2E3570; --lock-d:#222861;
   --hi:rgba(255,255,255,.07); --glass:rgba(19,24,64,.72); --grain:.07; --blob:34%;
   --shadow:0 1px 0 var(--hi) inset,0 1px 2px rgba(0,0,0,.35),0 18px 38px -14px rgba(0,0,0,.6);
@@ -272,7 +275,7 @@ h1,h2,h3,h4,p{margin:0}
 .mk input{flex:1;min-width:0;padding:13px 14px;border:2px solid var(--line);border-radius:14px;background:var(--surface);font-weight:600;transition:border-color .2s,box-shadow .2s}
 .mk input:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 4px color-mix(in srgb,var(--azul) 18%,transparent)}
 .mk-status{margin-top:10px;font-weight:700;font-size:14px;color:var(--ink-2);min-height:1.2em}
-.mk-status.err{color:var(--bad)}
+.mk-status.err{color:var(--bad-t)}
 .shimmer{background:linear-gradient(90deg,var(--ink-2) 0%,var(--rosa) 50%,var(--ink-2) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 1.6s linear infinite}
 .custom-list{display:grid;gap:10px;margin-top:10px}
 .cl{display:flex;align-items:stretch;gap:8px;background:var(--surface);border:2px solid var(--line);border-bottom-width:4px;border-radius:18px;padding:6px}
@@ -396,6 +399,7 @@ h1,h2,h3,h4,p{margin:0}
 
 /* ---------- overlay ---------- */
 .ov{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:radial-gradient(130% 55% at 50% -12%,color-mix(in srgb,var(--c,var(--rosa)) 16%,transparent),transparent 70%),var(--bg);overflow:hidden}
+.ov:focus{outline:none}
 .ov-top{display:flex;align-items:center;gap:10px;padding:10px 16px;max-width:620px;width:100%;margin:0 auto}
 .x{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:var(--ink-2);flex:none;transition:transform .12s,background .2s}
 .x:active{transform:scale(.9)}
@@ -410,7 +414,7 @@ h1,h2,h3,h4,p{margin:0}
 .combo .i{width:22px;height:22px;animation:flick 1.2s ease-in-out infinite;transform-origin:50% 85%}
 .combo.pop{animation:cpop .5s var(--e-spring)}
 @keyframes cpop{40%{scale:1.5;rotate:-10deg}}
-.combo-pop{position:absolute;left:50%;top:calc(66px + env(safe-area-inset-top,0px));z-index:6;transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;background:linear-gradient(135deg,var(--sol),var(--chile));color:var(--on-color);font-weight:800;font-size:16px;white-space:nowrap;box-shadow:0 14px 30px -12px var(--chile-d);pointer-events:none;animation:comboPop 1.6s var(--e-out) both}
+.combo-pop{position:absolute;left:50%;top:calc(66px + env(safe-area-inset-top,0px));z-index:6;transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;background:linear-gradient(135deg,var(--hot-a),var(--hot-b));color:var(--on-color);font-weight:800;font-size:16px;white-space:nowrap;box-shadow:0 14px 30px -12px var(--chile-d);pointer-events:none;animation:comboPop 1.6s var(--e-out) both}
 .combo-pop .i{width:22px;height:22px}
 @keyframes comboPop{0%{scale:.3;opacity:0;translate:0 12px}14%{scale:1.12;opacity:1;translate:0 0}24%{scale:1}80%{opacity:1}100%{opacity:0;translate:0 -24px}}
 .rv-count{font-weight:800;color:var(--ink-2);min-width:46px;text-align:right;font-variant-numeric:tabular-nums}
@@ -457,9 +461,9 @@ h1,h2,h3,h4,p{margin:0}
 .opt .n{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--ink-2);flex:none;transition:border-color .15s,color .15s,background .15s}
 .opt[aria-pressed="true"]{border-color:var(--azul);background:color-mix(in srgb,var(--azul) 11%,var(--surface));color:var(--azul);box-shadow:0 0 0 4px color-mix(in srgb,var(--azul) 14%,transparent)}
 .opt[aria-pressed="true"] .n{border-color:var(--azul);color:var(--azul)}
-.opt.right{border-color:var(--good);background:var(--good-bg);color:var(--good);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 18%,transparent);animation:okPop .5s var(--e-spring)}
+.opt.right{border-color:var(--good);background:var(--good-bg);color:var(--good-t);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 18%,transparent);animation:okPop .5s var(--e-spring)}
 .opt.right .n{border-color:var(--good);background:var(--good);color:var(--on-color)}
-.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:var(--bad);animation:shake .42s}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg);color:var(--bad-t);animation:shake .42s}
 @keyframes okPop{40%{scale:1.04}}
 .ans{min-height:118px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding:6px 0 12px;background:repeating-linear-gradient(to bottom,transparent 0 54px,var(--line) 54px 56px)}
 .ans.right{animation:okPop .5s var(--e-spring)}
@@ -470,14 +474,14 @@ h1,h2,h3,h4,p{margin:0}
 .tile.tin{animation:popScale .45s var(--e-spring) both;animation-delay:calc(var(--i) * 40ms + .25s)}
 .tile.ghost{background:var(--surface-2);border-color:transparent;color:transparent;animation:none}
 .ans .tile{border-color:color-mix(in srgb,var(--azul) 35%,var(--line))}
-.ans.right .tile{border-color:var(--good);color:var(--good)}
-.ans.wrong .tile{border-color:var(--bad);color:var(--bad)}
+.ans.right .tile{border-color:var(--good);color:var(--good-t)}
+.ans.wrong .tile{border-color:var(--bad);color:var(--bad-t)}
 .match{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .match .col{display:grid;gap:10px;align-content:start}
 .mt{padding:12px 10px;min-height:60px;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;background:var(--surface);font-weight:700;font-size:15px;line-height:1.2;transition:opacity .35s,border-color .15s,background .15s,color .15s,scale .3s}
 .mt.sel{border-color:var(--azul);color:var(--azul);background:color-mix(in srgb,var(--azul) 11%,var(--surface));scale:1.03}
-.mt.ok{border-color:var(--good);color:var(--good);background:var(--good-bg);opacity:.45;scale:.96;pointer-events:none}
-.mt.no{border-color:var(--bad);color:var(--bad);background:var(--bad-bg);animation:shake .42s}
+.mt.ok{border-color:var(--good);color:var(--good-t);background:var(--good-bg);opacity:.45;scale:.96;pointer-events:none}
+.mt.no{border-color:var(--bad);color:var(--bad-t);background:var(--bad-bg);animation:shake .42s}
 .type-in{width:100%;font-size:21px;font-weight:600;padding:15px 16px;border:2px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);transition:border-color .2s,box-shadow .2s}
 .type-in:focus{border-color:var(--azul);outline:none;box-shadow:0 0 0 5px color-mix(in srgb,var(--azul) 16%,transparent)}
 .accents{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
@@ -521,8 +525,8 @@ h1,h2,h3,h4,p{margin:0}
 .face.back{transform:rotateY(180deg)}
 .face::after{content:"";position:absolute;inset:3px;border-radius:17px;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.4),transparent 55%);opacity:var(--go,0);transition:opacity .3s}
 .stamp{position:absolute;z-index:5;padding:3px 12px;border:4px solid currentColor;border-radius:12px;font-family:var(--f-display);font-size:25px;line-height:1.25;background:color-mix(in srgb,var(--surface) 82%,transparent);pointer-events:none;white-space:nowrap;transition:opacity .12s}
-.s-good{left:16px;top:28px;color:var(--good);rotate:-14deg;opacity:var(--s-good,0)}
-.s-again{right:16px;top:28px;color:var(--bad);rotate:14deg;opacity:var(--s-again,0)}
+.s-good{left:16px;top:28px;color:var(--good-t);rotate:-14deg;opacity:var(--s-good,0)}
+.s-again{right:16px;top:28px;color:var(--bad-t);rotate:14deg;opacity:var(--s-again,0)}
 .s-easy{left:50%;top:22px;translate:-50% 0;color:var(--azul);opacity:var(--s-easy,0)}
 .s-hard{left:50%;bottom:30px;translate:-50% 0;color:var(--sol-d);opacity:var(--s-hard,0)}
 .rv-hint{text-align:center;font-weight:700;color:var(--ink-2);font-size:14px;margin-top:16px;min-height:1.4em}
@@ -536,15 +540,15 @@ h1,h2,h3,h4,p{margin:0}
 .fb.out{animation:sheetDown .22s ease-in both}
 .fb.good{background:var(--good-bg)}
 .fb.bad{background:var(--bad-bg)}
-.fb-in{max-width:620px;margin:0 auto;padding:18px 16px 14px;display:grid;gap:10px}
+.fb-in{max-width:620px;margin:0 auto;padding:18px 16px 14px;display:grid;gap:10px;max-height:min(72vh,72dvh);overflow-y:auto;overscroll-behavior:contain}
 .fb-h{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:26px;line-height:1.1}
-.fb.good .fb-h{color:var(--good)}
-.fb.bad .fb-h{color:var(--bad)}
+.fb.good .fb-h{color:var(--good-t)}
+.fb.bad .fb-h{color:var(--bad-t)}
 .fb-h .ic{width:38px;height:38px;border-radius:50%;background:currentColor;display:grid;place-items:center;animation:popScale .5s var(--e-spring) both}
 .fb-h .ic .i{color:var(--on-color);width:22px;height:22px}
 .fb-h .ic .i path{stroke-dasharray:32;stroke-dashoffset:32;animation:draw .45s var(--e-out) .2s forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
-.fb-l{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--bad)}
+.fb-l{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--bad-t)}
 .fb-a{font-size:20px;font-weight:800;color:var(--ink);line-height:1.25}
 .fb-p{font-weight:600}
 .fb-m{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);line-height:1.3}
@@ -565,7 +569,7 @@ h1,h2,h3,h4,p{margin:0}
 .done-stars .i:nth-child(2){width:84px;height:84px;animation-delay:.35s;margin-bottom:10px}
 .done-stars .i:nth-child(3){animation-delay:.5s}
 @keyframes starIn{from{scale:0;rotate:-60deg}}
-.perfect{padding:6px 14px;border-radius:999px;background:linear-gradient(90deg,var(--sol),var(--rosa),var(--sol));background-size:200% 100%;color:var(--on-color);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;animation:popScale .5s var(--e-spring) .85s both,shim 2.6s linear infinite}
+.perfect{padding:6px 14px;border-radius:999px;background:linear-gradient(90deg,var(--hot-a),var(--hot-c),var(--hot-a));background-size:200% 100%;color:var(--on-color);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;animation:popScale .5s var(--e-spring) .85s both,shim 2.6s linear infinite}
 .done-t{font-family:var(--f-display);font-weight:400;font-size:38px;line-height:1.1;color:var(--rosa);margin-top:4px}
 .done-t .wd{display:inline-block;white-space:nowrap}
 .done-t .lt{display:inline-block;animation:letterIn .75s var(--e-spring) both;animation-delay:calc(.5s + var(--i) * 34ms)}
@@ -607,7 +611,7 @@ h1,h2,h3,h4,p{margin:0}
 .msg .en{margin-top:6px;font-size:14px;font-weight:600;color:var(--ink-2);filter:blur(5px);transition:filter .3s;cursor:pointer;-webkit-user-select:none;user-select:none}
 .msg .en.show{filter:none;-webkit-user-select:text;user-select:text}
 .msg-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-.msg-err{margin-top:8px;font-size:14px;font-weight:700;color:var(--bad);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.msg-err{margin-top:8px;font-size:14px;font-weight:700;color:var(--bad-t);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .dots{display:inline-flex;gap:4px;padding:6px 0}
 .dots i{width:8px;height:8px;border-radius:50%;background:var(--ink-2);animation:dot 1s infinite ease-in-out}
 .dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
@@ -652,7 +656,7 @@ h1,h2,h3,h4,p{margin:0}
 .fbk-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .fbk-list li{padding:10px 12px;border-radius:12px;background:var(--surface-2);font-weight:600;line-height:1.4;animation:stIn .45s var(--e-out) both;animation-delay:calc(var(--i,0) * 70ms + .2s)}
 .fbk-list .said{color:var(--ink-2);text-decoration:line-through;text-decoration-color:var(--bad)}
-.fbk-list .better{color:var(--good);font-weight:800}
+.fbk-list .better{color:var(--good-t);font-weight:800}
 .fbk-ph{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
 .toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));z-index:90;background:var(--ink);color:var(--bg);padding:11px 16px;border-radius:14px;font-weight:700;font-size:14px;box-shadow:var(--shadow);max-width:calc(100% - 32px);transform:translateX(-50%);animation:toastIn .45s var(--e-spring) both;text-align:center}
 .toast.out{animation:fadeOut .25s both}
@@ -702,8 +706,8 @@ h1,h2,h3,h4,p{margin:0}
 .pr-msg{font-weight:800;font-size:17px;line-height:1.3}
 .pr-words{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .pw{padding:5px 10px;border-radius:10px;font-weight:800;font-size:17px;animation:popScale .45s var(--e-spring) both;animation-delay:calc(var(--i) * 50ms + .1s)}
-.pw.ok{background:var(--good-bg);color:var(--good)}
-.pw.miss{background:var(--bad-bg);color:var(--bad)}
+.pw.ok{background:var(--good-bg);color:var(--good-t)}
+.pw.miss{background:var(--bad-bg);color:var(--bad-t)}
 .pr-heard{margin-top:10px;font-size:14px;font-weight:600;color:var(--ink-2)}
 .pr-miss{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
 .pr-miss li{padding:10px 12px;border-radius:12px;background:var(--surface-2);font-weight:600;line-height:1.45}
@@ -949,7 +953,8 @@ h1,h2,h3,h4,p{margin:0}
 @keyframes paneIn{from{opacity:0;translate:26px 0;scale:.985}}
 @keyframes paneInB{from{opacity:0;translate:-26px 0;scale:.985}}
 @keyframes riseIn{from{opacity:0;translate:0 22px;scale:.98}}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .path .node,.path .node-label,.unit .unit-head,.unit-num{animation:none!important}}
 </style>
 </head>
 <body>
@@ -960,7 +965,7 @@ h1,h2,h3,h4,p{margin:0}
   <div class="picado" id="picado" aria-hidden="true"></div>
   <header class="topbar-wrap" id="topbar">
     <div class="wrap topbar">
-      <div class="brand" data-act="brand" aria-label="Charla, español de México"><span aria-hidden="true"><span class="bl" style="--i:0">C</span><span class="bl" style="--i:1">h</span><span class="bl" style="--i:2">a</span><span class="bl" style="--i:3">r</span><span class="bl" style="--i:4">l</span><span class="bl" style="--i:5">a</span></span><small>de México</small></div>
+      <div class="brand" data-act="brand" role="img" aria-label="Charla, español de México"><span aria-hidden="true"><span class="bl" style="--i:0">C</span><span class="bl" style="--i:1">h</span><span class="bl" style="--i:2">a</span><span class="bl" style="--i:3">r</span><span class="bl" style="--i:4">l</span><span class="bl" style="--i:5">a</span></span><small aria-hidden="true">de México</small></div>
       <div class="chips">
         <button class="chip" id="chipStreak" data-act="tab" data-v="yo" aria-label="Streak"><span class="fl" id="flame"></span><b id="stkNum">0</b></button>
         <button class="chip" id="chipXp" data-act="tab" data-v="yo" aria-label="Today's XP"><span id="xpRing"></span><b id="xpNum">0</b><span class="muted" id="xpGoal">/20 XP</span></button>
@@ -989,6 +994,11 @@ const hash=s=>{let h=2166136261;for(const ch of s){h^=ch.codePointAt(0);h=Math.i
 const stripP=s=>String(s).replace(/[¿?¡!.,;:"“”«»()…]/g,'');
 const norm=s=>stripP(String(s).toLowerCase()).replace(/\s+/g,' ').trim();
 const deacc=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'');
+/* for grading: drop accent marks but keep ñ, since año and ano are different words */
+const deaccG=s=>s.replace(/ñ/g,'\u0001').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\u0001/g,'ñ');
+/* one slip is forgiven only inside a word: a changed last letter (hermano/hermana, hablar/hablas) is a different word */
+const typoOk=(a,v)=>{if(a.length<=5||lev(a,v)>1)return false;if(a.replace(/ /g,'')===v.replace(/ /g,''))return true;
+ const x=a.split(' '),y=v.split(' ');return x.length===y.length&&x.every((w,i)=>w.length<=4?w===y[i]:w.slice(-1)===y[i].slice(-1))};
 const toks=s=>stripP(s).split(/\s+/).filter(Boolean);
 const dk=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 const MIN=60e3, HOUR=36e5, DAY=864e5;
@@ -1151,36 +1161,84 @@ IDEAS: <two short things the learner could say next, in Spanish, separated by " 
 
 /* ================= state & storage ================= */
 const DEF_SET={goal:20,rate:.9,voice:'',listen:true,sfx:true,showEn:false,track:'diario',tab:'aprender',name:'',onboarded:false};
-const fresh=()=>({v:1,updatedAt:0,xp:0,days:{},done:{},cards:{},nextNo:1,custom:[],settings:{...DEF_SET}});
+const fresh=()=>({v:1,updatedAt:0,xp:0,days:{},dd:{},done:{},cards:{},nextNo:1,custom:[],gone:{},settings:{...DEF_SET}});
 /* flashcards saved before the switch to Mexican wording get the new wording */
 const RENAMED={'todo recto':['todo derecho','straight ahead'],'allí':['ahí','there'],'Cuesta diez dólares.':['Cuesta diez pesos.','It costs ten pesos.'],'Quiero un café, por favor.':['¿Me da un café, por favor?','Can I get a coffee, please?'],'los vómitos':['el vómito','vomiting'],'¿Qué le trae por aquí hoy?':['¿En qué le puedo ayudar hoy?','How can I help you today?'],'Mire aquí.':['Mire hacia acá.','Look over here.'],'Vamos a hacer un análisis de sangre.':['Le vamos a hacer unos análisis de sangre.','We’re going to run some blood tests.'],'El doctor viene pronto.':['El doctor viene en un momento.','The doctor will be with you in a moment.'],'Me llamo Jaxon.':['Me llamo Sofía.','My name is Sofía.'],'Soy de Florida.':['Soy de Estados Unidos.','I’m from the United States.'],'Somos de Jacksonville.':['Somos de California.','We are from California.'],'Estudio medicina.':['Estudio español.','I’m studying Spanish.'],'Buenos días, soy Jaxon.':['Buenos días, soy Daniel.','Good morning, I’m Daniel.'],'Soy estudiante de asistente médico.':['Voy a hacerle unas preguntas.','I’m going to ask you some questions.']};
-function renameCards(s){for(const [k,c] of Object.entries(s.cards)){const r=c&&RENAMED[c.es];if(!r)continue;const nk=hash(r[0]);delete s.cards[k];if(!s.cards[nk])s.cards[nk]={...c,es:r[0],en:r[1]}}}
-function migrate(o){const s=fresh();if(o&&typeof o==='object'){Object.assign(s,o);s.settings={...DEF_SET,...(o.settings||{})};s.days=o.days||{};s.done=o.done||{};s.cards=o.cards||{};s.custom=Array.isArray(o.custom)?o.custom:[];s.nextNo=o.nextNo||Object.keys(s.cards).length+1;renameCards(s)}return s}
+function renameCards(s){for(const [k,c] of Object.entries(s.cards)){const r=c&&RENAMED[c.es];if(!r)continue;const nk=hash(r[0]);delete s.cards[k];if(!s.cards[nk]){const it=ITEMS.find(x=>x.es===r[0]);s.cards[nk]={...c,es:r[0],en:r[1],note:(it&&it.note)||undefined}}}}
+function migrate(o){const s=fresh();if(o&&typeof o==='object'){Object.assign(s,o);s.settings={...DEF_SET,...(o.settings||{})};s.days=o.days||{};s.done=o.done||{};s.cards=o.cards||{};s.custom=Array.isArray(o.custom)?o.custom:[];s.gone=o.gone||{};s.dd=o.dd||{};s.nextNo=o.nextNo||Object.keys(s.cards).length+1;renameCards(s)}return s}
 const LSK='charla-spanish-v1';
 let S=fresh();
 try{const raw=localStorage.getItem(LSK);if(raw)S=migrate(JSON.parse(raw))}catch(e){}
 function writeLocal(){try{localStorage.setItem(LSK,JSON.stringify(S))}catch(e){}}
-let DBDOC=null, SYNC='local', pushT=0, writing=false, dirty=false;
-function save(){S.updatedAt=Date.now();writeLocal();clearTimeout(pushT);pushT=setTimeout(push,1200)}
-async function push(retried){
- if(!DBDOC)return; if(writing){dirty=true;return}
- writing=true;
- try{await DBDOC.set(JSON.parse(JSON.stringify(S)));SYNC='cloud'}
- catch(e){const c=e&&e.code;
-  if(c==='unavailable'&&!retried){writing=false;setTimeout(()=>push(true),800+Math.random()*900);return}
-  if(['invalid_argument','revoked','not_granted','quota_exceeded','capability_disabled'].includes(c)){DBDOC=null;SYNC='local'}}
- writing=false; if(dirty&&DBDOC){dirty=false;push()}
-}
+let DBDOC=null, SYNC='local', pushT=0, writing=false, dirty=false, pulled=false;
+let SET_SIG=null;
+function save(){S.updatedAt=Date.now();const sg=setSig(S);if(SET_SIG!==null&&sg!==SET_SIG)S.settingsAt=S.updatedAt;SET_SIG=sg;writeLocal();clearTimeout(pushT);pushT=setTimeout(push,1200)}
+const clone=o=>JSON.parse(JSON.stringify(o));
+const cidT=id=>parseInt(String(id).slice(1),36)||0;
 const isEmpty=s=>!(s.xp>0)&&!Object.keys(s.done||{}).length&&!Object.keys(s.cards||{}).length;
-async function pull(){
+/* Two devices can both make progress before either syncs, so sync merges instead of letting the newest copy win.
+   - XP is counted per device per day (dd), so XP earned the same day on two devices adds up instead of one being lost.
+   - A reset (resetAt) trims the other copy to what happened after it; deleted custom lessons are remembered (gone).
+   - Settings follow their own clock (settingsAt), so finishing a lesson on one device doesn't undo a settings change made on another. */
+let DEV='';try{DEV=localStorage.getItem('charla-dev')||'';if(!DEV){DEV=Date.now().toString(36)+Math.random().toString(36).slice(2,8);localStorage.setItem('charla-dev',DEV)}}catch(e){DEV=DEV||'d0'}
+const sumObj=o=>Object.values(o||{}).reduce((x,y)=>x+(y||0),0);
+const ddDay=(s,k)=>Object.values(s.dd||{}).reduce((x,d)=>x+((d&&d[k])||0),0);
+const stable=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((r,x)=>(r[x]=v[x],r),{}):v);
+const setSig=s=>JSON.stringify({...s.settings,tab:0});
+SET_SIG=setSig(S);
+/* Day totals can't be split at the reset moment, so the copy that missed the reset keeps only XP from the days after it
+   (its cards, lessons and custom lessons are timestamped and survive exactly). */
+function afterReset(s,R){
+ const day=dk(new Date(R)),keep=o=>Object.fromEntries(Object.entries(o||{}).filter(([k])=>k>day));
+ const t={...s,days:keep(s.days),dd:Object.fromEntries(Object.entries(s.dd||{}).map(([d,o])=>[d,keep(o)])),
+  done:Object.fromEntries(Object.entries(s.done).filter(([,v])=>v&&(v.at||0)>R)),
+  cards:Object.fromEntries(Object.entries(s.cards).filter(([,c])=>(c.t||0)>R)),
+  custom:s.custom.filter(c=>c&&cidT(c.id)>R)};
+ t.xp=sumObj(t.days);return t;
+}
+function mergeState(a0,b0){
+ const R=Math.max(a0.resetAt||0,b0.resetAt||0);
+ const a=(a0.resetAt||0)<R?afterReset(a0,R):a0,b=(b0.resetAt||0)<R?afterReset(b0,R):b0,m=fresh();
+ m.updatedAt=Math.max(a.updatedAt||0,b.updatedAt||0);m.resetAt=R||undefined;
+ /* settings: an empty copy (a brand-new device) never wins; then the settings clock; only if neither copy has one, the progress clock */
+ const ea=isEmpty(a0),eb=isEmpty(b0),hasClk=a.settingsAt||b.settingsAt,clk=s=>hasClk?(s.settingsAt||0):(s.updatedAt||0);
+ const src=ea&&!eb?b:eb&&!ea?a:clk(b)>clk(a)?b:a;
+ const name=src.settingsAt&&!(ea!==eb)?src.settings.name:(src.settings.name||a.settings.name||b.settings.name||'');
+ m.settings={...src.settings,name:name||'',onboarded:!!(a.settings.onboarded||b.settings.onboarded)};
+ m.settingsAt=Math.max(a.settingsAt||0,b.settingsAt||0)||undefined;
+ for(const s of [a,b])for(const [d,o] of Object.entries(s.dd||{})){const t=m.dd[d]=m.dd[d]||{};for(const [k,v] of Object.entries(o||{}))t[k]=Math.max(t[k]||0,v||0)}
+ const legacy=(s,k)=>Math.max(0,((s.days||{})[k]||0)-ddDay(s,k));
+ for(const k of new Set([...Object.keys(a.days),...Object.keys(b.days)])){const v=Math.max(legacy(a,k),legacy(b,k))+ddDay(m,k);if(v)m.days[k]=v}
+ m.xp=Math.max(0,(a.xp||0)-sumObj(a.days),(b.xp||0)-sumObj(b.days))+sumObj(m.days);
+ m.gone={...(a.gone||{}),...(b.gone||{})};
+ for(const s of [a,b])for(const [k,v] of Object.entries(s.done)){if(m.gone[k])continue;const p=m.done[k];m.done[k]=!p?v:{s:Math.max(p.s||0,v.s||0),at:Math.max(p.at||0,v.at||0)}}
+ for(const s of [a,b])for(const [k,c] of Object.entries(s.cards)){const p=m.cards[k];if(!p||(c.rv||0)>(p.rv||0)||((c.rv||0)===(p.rv||0)&&(c.d||0)>(p.d||0)))m.cards[k]=c}
+ const seen=new Set();m.custom=[...a.custom,...b.custom].filter(c=>c&&!m.gone[c.id]&&!seen.has(c.id)&&seen.add(c.id)).sort((x,y)=>cidT(y.id)-cidT(x.id)).slice(0,30);
+ m.nextNo=Math.max(a.nextNo||1,b.nextNo||1,...Object.values(m.cards).map(c=>(c.no||0)+1));
+ return m;
+}
+async function push(retried){
+ if(!DBDOC)return; if(writing||!pulled){dirty=true;return}
+ writing=true;
  try{
   const snap=await DBDOC.get();
-  if(snap.exists){SYNC='cloud';const r=JSON.parse(JSON.stringify(snap.data()||{}));
-   if((r.updatedAt||0)>(S.updatedAt||0)||(isEmpty(S)&&!isEmpty(r))){const keep=S.settings.name;S=migrate(r);if(!S.settings.name&&keep)S.settings.name=keep;S.settings.onboarded=true;writeLocal();if(OV.hidden)renderAll();else renderHeader()}
-   else if((S.updatedAt||0)>(r.updatedAt||0))push();
-  } else if(S.updatedAt) push();
+  if(snap.exists){const before=stable(S);S=mergeState(S,migrate(clone(snap.data()||{})));SET_SIG=setSig(S);if(stable(S)!==before){writeLocal();refreshChrome()}}
+  await DBDOC.set(clone(S));SYNC='cloud'}
+ catch(e){const c=e&&e.code;
+  if(c==='unavailable'&&!retried){writing=false;setTimeout(()=>push(true),800+Math.random()*900);return}
+  if(['invalid_argument','revoked','not_granted','quota_exceeded','capability_disabled'].includes(c)){DBDOC=null;SYNC='local'}
+  else if(c==='unavailable'){dirty=true;writing=false;setTimeout(()=>{if(dirty&&!writing){dirty=false;push()}},15000);return}}
+ writing=false; if(dirty&&DBDOC){dirty=false;push()}
+}
+async function pull(){
+ try{
+  const snap=await DBDOC.get();SYNC='cloud';
+  if(snap.exists){const before=stable(S),r=migrate(clone(snap.data()||{}));S=mergeState(S,r);SET_SIG=setSig(S);
+   if(stable(S)!==before){writeLocal();softRender()}
+   pulled=true;if(dirty||stable(S)!==stable(r)){dirty=false;push()}
+  } else {pulled=true;if(S.updatedAt||dirty){dirty=false;push()}}
   if(curTab==='yo'&&OV.hidden){const s=$('#syncNote');if(s)s.textContent='Progress syncs to your Claude account.'}
- }catch(e){SYNC='local'}
+ }catch(e){SYNC='local';pulled=true;if(dirty&&DBDOC){dirty=false;clearTimeout(pushT);pushT=setTimeout(push,1200)}}
 }
 
 /* ================= AI capability ================= */
@@ -1198,7 +1256,7 @@ function initCaps(){
 function refreshAI(){
  if(!OV.hidden)return;
  if(curTab==='hablar'){$$('.scen[data-act="scen"]').forEach(b=>{b.disabled=SAMPLE_STATE==='off'});const n=$('#aiNote');if(n)n.hidden=SAMPLE_STATE!=='off'}
- else if(curTab==='aprender'){const b=$('#mkBtn'),i=$('#mkTopic'),n=$('#mkNote');if(b){b.disabled=SAMPLE_STATE!=='ready';i.disabled=SAMPLE_STATE!=='ready'}if(n)n.hidden=SAMPLE_STATE!=='off'}
+ else if(curTab==='aprender'){const b=$('#mkBtn'),i=$('#mkTopic'),n=$('#mkNote');if(b){b.disabled=SAMPLE_STATE!=='ready'||!!MK_BUSY;i.disabled=SAMPLE_STATE!=='ready'}if(n)n.hidden=SAMPLE_STATE!=='off'}
 }
 function aiErr(e){
  const c=e&&e.code;
@@ -1292,13 +1350,13 @@ function buildPicado(){
 /* ================= progress helpers ================= */
 const todayXP=()=>S.days[dk()]||0;
 function streak(){const d=new Date();let n=0;if(!(S.days[dk(d)]>0))d.setDate(d.getDate()-1);while(S.days[dk(d)]>0){n++;d.setDate(d.getDate()-1)}return n}
-function addXP(n){const k=dk(),before=S.days[k]||0;S.days[k]=before+n;S.xp=(S.xp||0)+n;save();refreshChrome();return before<S.settings.goal&&before+n>=S.settings.goal}
+function addXP(n){const k=dk(),before=S.days[k]||0;S.days[k]=before+n;S.dd=S.dd||{};const mine=S.dd[DEV]=S.dd[DEV]||{};mine[k]=(mine[k]||0)+n;S.xp=(S.xp||0)+n;save();refreshChrome();return before<S.settings.goal&&before+n>=S.settings.goal}
 const dueKeys=()=>{const now=Date.now();return Object.entries(S.cards).filter(([,c])=>c.d<=now).sort((a,b)=>a[1].d-b[1].d).map(x=>x[0])};
 const dueCount=()=>{const now=Date.now();let n=0;for(const c of Object.values(S.cards))if(c.d<=now)n++;return n};
 function cardState(c){if(!c.rv)return{l:'Nueva',c:'rosa'};if(!c.i||c.i<1)return{l:'Aprendiendo',c:'sol'};if(c.i<21)return{l:'Joven',c:'jade'};return{l:'Dominada',c:'azul'}}
-function addCard(es,en,note){const key=hash(es);if(S.cards[key])return false;S.cards[key]={es,en,note:note||undefined,no:S.nextNo++,d:Date.now(),i:0,e:2.5,rv:0,l:0};return true}
+function addCard(es,en,note){const key=hash(es);if(S.cards[key])return false;S.cards[key]={es,en,note:note||undefined,no:S.nextNo++,d:Date.now(),t:Date.now(),i:0,e:2.5,rv:0,l:0};return true}
 function schedule(c,r,now=Date.now()){
- const n={...c};n.rv=(c.rv||0)+1;const e=c.e||2.5,learning=!c.i||c.i<1;
+ const n={...c,t:now};n.rv=(c.rv||0)+1;const e=c.e||2.5,learning=!c.i||c.i<1;
  if(r==='again'){n.l=(c.l||0)+1;n.e=Math.max(1.3,e-(learning?0:.2));n.i=0;n.d=now+MIN}
  else if(learning){if(r==='hard'){n.i=0;n.d=now+6*MIN}else if(r==='good'){n.i=1;n.d=now+DAY}else{n.i=3;n.d=now+3*DAY;n.e=e+.15}}
  else{const i=c.i;if(r==='hard'){n.i=Math.max(i+1,Math.round(i*1.2));n.e=Math.max(1.3,e-.15)}else if(r==='good')n.i=Math.max(i+1,Math.round(i*e));else{n.i=Math.max(i+2,Math.round(i*e*1.3));n.e=e+.15}n.d=now+n.i*DAY}
@@ -1344,6 +1402,9 @@ function renderHeader(){
 }
 const refreshChrome=()=>{if(OV.hidden)renderHeader();else updateBadge()};
 function renderAll(mode){renderHeader();renderView(mode)}
+/* Re-render without throwing away what the learner is in the middle of: typed text, a focused field, a delete/reset confirm, a lesson being written. */
+function viewBusy(){if(MK_BUSY)return true;const ae=document.activeElement;if(ae&&VIEW.contains(ae)&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return true;return $$('input,textarea',VIEW).some(i=>i.type!=='checkbox'&&i.value!==i.defaultValue)||!!VIEW.querySelector('.cl-confirm,.confirm-row')}
+function softRender(){if(!OV.hidden||viewBusy())refreshChrome();else renderAll()}
 let paneTimer=0,enterTimer=0;
 function renderView(mode){
  clearTimeout(paneTimer);clearTimeout(enterTimer);
@@ -1374,11 +1435,17 @@ function floatXP(n){
 function toast(msg,ms=2600){const h=$('#toastHost');h.innerHTML=`<div class="toast">${esc(msg)}</div>`;clearTimeout(toast.t);clearTimeout(toast.t2);toast.t=setTimeout(()=>{const t=h.firstElementChild;if(t)t.classList.add('out');toast.t2=setTimeout(()=>{h.innerHTML=''},260)},ms)}
 function openSheet(html){
  clearTimeout(closeSheet.t);
- $('#sheetHost').innerHTML=`<div class="scrim" data-act="scrim"><div class="sheet" role="dialog" aria-modal="true"><div class="grab-zone" id="grabZone"><div class="grab"></div></div>${html}</div></div>`;
- bindSheetDrag();
+ if(!$('#sheetHost').firstChild)sheetFocus.prev=document.activeElement;
+ $('#sheetHost').innerHTML=`<div class="scrim" data-act="scrim"><div class="sheet" role="dialog" aria-modal="true" tabindex="-1"><div class="grab-zone" id="grabZone"><div class="grab"></div></div>${html}</div></div>`;
+ bindSheetDrag();sheetInert(true);
+ const sh=$('#sheetHost .sheet');try{sh&&sh.focus({preventScroll:true})}catch(e){}
 }
+/* while a sheet is open, everything behind it is inert, so Tab and screen readers stay inside it */
+function sheetInert(on){['#app','.tabs','#ov'].forEach(q=>{const el=$(q);if(el){if(on)el.setAttribute('inert','');else el.removeAttribute('inert')}})}
+function sheetFocus(){const p=sheetFocus.prev;sheetFocus.prev=null;try{if(p&&p.isConnected&&!p.closest('[inert]'))p.focus({preventScroll:true})}catch(e){}}
 function closeSheet(instant){
  const h=$('#sheetHost'),s=h.firstElementChild;if(!s)return;
+ if(!s.classList.contains('out')){sheetInert(false);sheetFocus()}
  if(instant===true||REDUCED){h.innerHTML='';return}
  if(s.classList.contains('out'))return;s.classList.add('out');
  closeSheet.t=setTimeout(()=>{if(h.firstElementChild===s)h.innerHTML=''},270);
@@ -1389,7 +1456,7 @@ function bindSheetDrag(){
  z.addEventListener('pointermove',e=>{if(e.pointerId!==id)return;const raw=e.clientY-sy;dy=raw>0?raw:-Math.pow(-raw,.72);hist.push({y:e.clientY,t:e.timeStamp});if(hist.length>6)hist.shift();sh.style.transform=`translateY(${dy.toFixed(1)}px)`;const s=sh.parentElement;if(s&&raw>0)s.style.setProperty('--dim',String(Math.max(0,1-raw/500)))});
  const end=e=>{if(e.pointerId!==id)return;id=null;
   const h0=hist[0],h1=hist[hist.length-1],v=h1.t>h0.t?(h1.y-h0.y)/(h1.t-h0.t):0;const s=sh.parentElement;
-  if(dy>110||(v>.55&&dy>20)){const dur=Math.max(160,Math.min(320,(innerHeight-dy)/Math.max(1.4,v)));sh.style.transition=`transform ${dur}ms cubic-bezier(.3,.6,.6,1)`;sh.style.transform='translateY(110%)';s.classList.add('fading');setTimeout(()=>{if($('#sheetHost').firstElementChild===s)$('#sheetHost').innerHTML=''},dur)}
+  if(dy>110||(v>.55&&dy>20)){const dur=Math.max(160,Math.min(320,(innerHeight-dy)/Math.max(1.4,v)));sh.style.transition=`transform ${dur}ms cubic-bezier(.3,.6,.6,1)`;sh.style.transform='translateY(110%)';s.classList.add('fading');sheetInert(false);sheetFocus();setTimeout(()=>{if($('#sheetHost').firstElementChild===s)$('#sheetHost').innerHTML=''},dur)}
   else{if(s)s.style.removeProperty('--dim');sh.style.transform='';springTo(sh,0,dy,0)}};
  z.addEventListener('pointerup',end);z.addEventListener('pointercancel',end);
 }
@@ -1437,9 +1504,9 @@ function customCard(c){return `<div class="cl${FX.newCustom===c.id?' new':''}" i
 function mineHtml(){
  const ai=SAMPLE_STATE==='ready';
  return `<section class="sec-h" aria-labelledby="mineH"><h2 id="mineH">Mis lecciones</h2><p>Type any topic and AI builds a quick lesson for it: words, phrases and a tip. It plays just like the lessons above.</p></section>
- <form class="mk" id="mkForm"><input id="mkTopic" maxlength="60" autocomplete="off" placeholder="Topic: gym, tacos, ER triage…" aria-label="Lesson topic" ${ai?'':'disabled'}><button class="btn c-azul" id="mkBtn" type="submit" ${ai?'':'disabled'}>${ic('sparkle')}Crear</button></form>
+ <form class="mk" id="mkForm"><input id="mkTopic" maxlength="60" autocomplete="off" placeholder="Topic: gym, tacos, ER triage…" aria-label="Lesson topic" ${ai?'':'disabled'}><button class="btn c-azul" id="mkBtn" type="submit" ${ai&&!MK_BUSY?'':'disabled'}>${ic('sparkle')}Crear</button></form>
  <div class="note" id="mkNote" ${SAMPLE_STATE==='off'?'':'hidden'}>AI lessons need the Claude app or claude.ai, signed in.</div>
- <div class="mk-status" id="mkStatus" aria-live="polite"></div>
+ <div class="mk-status" id="mkStatus" aria-live="polite">${MK_BUSY?mkWorking(MK_BUSY):''}</div>
  <div class="custom-list" id="customList">${S.custom.map(customCard).join('')}</div>`;
 }
 const MOUNT={};
@@ -1484,9 +1551,13 @@ function runAfterFX(){
   setTimeout(()=>{sfx.unlock();try{un.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}},700);
   setTimeout(()=>{$$('.unlock-cover,.lock-fly',un).forEach(e=>e.remove());un.parentElement.classList.remove('unlock')},1900)}
 }
+let MK_BUSY=null;
+const mkWorking=t=>`<span class="shimmer">Luz is writing a lesson about “${esc(t)}”…</span>`;
 async function createLesson(topic){
- if(SAMPLE_STATE!=='ready'){toast('AI is still starting up. Try again in a moment.');return}
- const st=$('#mkStatus'),btn=$('#mkBtn');btn.disabled=true;st.className='mk-status';st.innerHTML=`<span class="shimmer">Luz is writing a lesson about “${esc(topic)}”…</span>`;
+ if(MK_BUSY)return;
+ if(SAMPLE_STATE!=='ready'){toast(SAMPLE_STATE==='off'?'AI isn’t available in this view.':'AI is still starting up. Try again in a moment.');return}
+ MK_BUSY=topic;
+ let st=$('#mkStatus'),btn=$('#mkBtn');if(btn)btn.disabled=true;if(st){st.className='mk-status';st.innerHTML=mkWorking(topic)}
  const prompt=`Create a beginner (A1) Mexican Spanish mini-lesson about: "${topic.slice(0,60)}". Use the words and phrasing people actually use in Mexico, not Spain.
 Return only JSON in this shape: {"title": "short Spanish title, 1-4 words", "sub": "short English subtitle", "tip": "one or two plain-English sentences with a useful grammar or usage tip for this topic", "items": [["spanish", "english"], ...]}
 Use exactly 8 items. The first 5 are single words or short nouns with their article (like "la cabeza"). The last 3 are short, useful sentences of 3 to 7 words with correct Spanish punctuation (¿? ¡!). Keep the vocabulary common and correct. English translations are short.`;
@@ -1494,15 +1565,17 @@ Use exactly 8 items. The first 5 are single words or short nouns with their arti
   const r=await SAMPLE.json(prompt,{modelTier:'quick',cache:false});
   const items=(r&&Array.isArray(r.items)?r.items:[]).filter(a=>Array.isArray(a)&&typeof a[0]==='string'&&typeof a[1]==='string'&&a[0].trim()&&a[1].trim()).map(a=>[a[0].trim().slice(0,90),a[1].trim().slice(0,90)]);
   const seen=new Set(),uniq=items.filter(a=>{const k=norm(a[0]);if(seen.has(k))return false;seen.add(k);return true}).slice(0,10);
-  if(uniq.length<4||typeof r.title!=='string')throw{code:'invalid_json'};
-  const c={id:'u'+Date.now().toString(36),t:r.title.trim().slice(0,40),s:String(r.sub||topic).trim().slice(0,60),tip:String(r.tip||'').trim().slice(0,400),items:uniq};
-  S.custom.unshift(c);S.custom=S.custom.slice(0,30);save();
+  if(uniq.length<4)throw{code:'invalid_json'};
+  const title=(typeof r.title==='string'&&r.title.trim())||topic.charAt(0).toUpperCase()+topic.slice(1);
+  const c={id:'u'+Date.now().toString(36),t:title.trim().slice(0,40),s:String(r.sub||topic).trim().slice(0,60),tip:String(r.tip||'').trim().slice(0,400),items:uniq};
+  S.custom.unshift(c);S.gone=S.gone||{};for(const old of S.custom.slice(30)){delete S.done[old.id];S.gone[old.id]=Date.now()}S.custom=S.custom.slice(0,30);MK_BUSY=null;save();
+  st=$('#mkStatus');btn=$('#mkBtn');
   FX.newCustom=c.id;const list=$('#customList');if(list)list.innerHTML=S.custom.map(customCard).join('');FX.newCustom=null;
   const inp=$('#mkTopic');if(inp)inp.value='';
   if(st){st.textContent=''}if(btn)btn.disabled=false;
   const el=$('#cl-'+c.id);if(el&&!REDUCED){setTimeout(()=>{const p=rectC(el);burst(p.x,p.y,22)},250)}
   sfx.sparkle();toast(`“${c.t}” is ready`);
- }catch(e){const m=aiErr(e);if(btn)btn.disabled=SAMPLE_STATE!=='ready';if(st){st.className='mk-status err';st.textContent=m.msg}}
+ }catch(e){MK_BUSY=null;const m=aiErr(e);refreshAI();st=$('#mkStatus');btn=$('#mkBtn');if(btn)btn.disabled=SAMPLE_STATE!=='ready';if(st){st.className='mk-status err';st.textContent=m.msg}}
 }
 
 /* ================= REPASAR ================= */
@@ -1598,6 +1671,7 @@ const farR=(x,y)=>Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))
 function openOv(kind,origin,c){
  OV.hidden=false;OV.className=`ov ov-${kind} c-${c||'rosa'}`;document.body.style.overflow='hidden';
  OV._origin=origin||{x:innerWidth/2,y:innerHeight/2};sfx.open();
+ OV.tabIndex=-1;requestAnimationFrame(()=>{if(!OV.hidden&&!OV.contains(document.activeElement))try{OV.focus({preventScroll:true})}catch(e){}});
  if(REDUCED||!OV.animate)return;
  const {x,y}=OV._origin,R=farR(x,y);
  OV.animate([{clipPath:`circle(0px at ${x}px ${y}px)`},{clipPath:`circle(${R}px at ${x}px ${y}px)`}],{duration:640,easing:'cubic-bezier(.7,0,.2,1)'});
@@ -1659,8 +1733,10 @@ function checkType(input,it){
  const variants=[it.es].flatMap(a=>{const n=norm(a),m=n.match(/^(el|la|los|las|un|una) (.+)$/);return m?[n,m[2]]:[n]});
  const v=norm(input);if(!v)return null;
  if(variants.includes(v))return{ok:true};
- const vd=deacc(v);if(variants.some(a=>deacc(a)===vd))return{ok:true,note:'accent'};
- if(variants.some(a=>a.length>5&&lev(deacc(a),vd)<=1))return{ok:true,note:'typo'};
+ const vd=deaccG(v);if(variants.some(a=>deaccG(a)===vd))return{ok:true,note:'accent'};
+ /* ñ is its own letter (año/ano), so leaving it out is always a miss, with a reminder */
+ if(variants.some(a=>deacc(a)===deacc(v)))return{ok:false,note:'enye'};
+ if(variants.some(a=>typoOk(deaccG(a),vd)))return{ok:true,note:'typo'};
  return{ok:false};
 }
 function lot(o){
@@ -1715,7 +1791,10 @@ function startLesson(id,el){
  LS.curtT=setTimeout(liftCurtain,1450);
 }
 function liftCurtain(){const c=$('#curtain');if(!c||c.classList.contains('out')||!LS)return;clearTimeout(LS.curtT);c.classList.add('out');renderEx();setTimeout(()=>c.remove(),700)}
-function hideFeedback(){OV.classList.remove('fbopen');const fb=$('#fb');if(!fb||fb.hidden)return;if(REDUCED){fb.hidden=true;fb.innerHTML='';return}fb.classList.add('out');setTimeout(()=>{if(fb.classList.contains('out')){fb.hidden=true;fb.innerHTML='';fb.classList.remove('out')}},220)}
+/* keep the exercise scrollable above the feedback sheet, however tall the sheet grows (¿Por qué? answers stream in) */
+function fitFb(fb){const pad=()=>{const b=$('#ovBody');if(b&&!fb.hidden&&!fb.classList.contains('out'))b.style.paddingBottom=(fb.offsetHeight+16)+'px'};pad();
+ if(window.ResizeObserver&&!fb._ro){fb._ro=new ResizeObserver(pad);fb._ro.observe(fb)}}
+function hideFeedback(){OV.classList.remove('fbopen');{const b=$('#ovBody');if(b)b.style.paddingBottom=''}const fb=$('#fb');if(!fb||fb.hidden)return;if(REDUCED){fb.hidden=true;fb.innerHTML='';return}fb.classList.add('out');setTimeout(()=>{if(fb.classList.contains('out')){fb.hidden=true;fb.innerHTML='';fb.classList.remove('out')}},220)}
 function renderEx(){
  if(!LS)return;const ex=LS.ex[LS.i];if(!ex){finishLesson();return}
  const old=$('#ovBody .ex');hideFeedback();
@@ -1746,23 +1825,26 @@ function check(){
 }
 function feedback(ok,d){
  const ex=LS.ex[LS.i],it=ex.it;LS.state='fb';LS.answered++;LS.lastTheirs=d.theirs;edgeFlash(ok);if(ok)haptic(12);
- if(ok){LS.correct++;LS.combo++;LS.best=Math.max(LS.best,LS.combo);sfx.good();
+ /* a match finished with misses is completed but not correct: it costs accuracy and the combo */
+ if(ok&&d.partial){LS.mistakes++;LS.combo=0;sfx.good()}
+ else if(ok){LS.correct++;LS.combo++;LS.best=Math.max(LS.best,LS.combo);sfx.good();
   const tgt=$('.opt.right')||$('#typeIn')||$('#ans')||$('.match');if(tgt&&!REDUCED){const c=rectC(tgt);burst(c.x,c.y,22,[cssVar('good'),cssVar('sol'),cssVar('jade')])}
   if([3,5,10,15,20,30].includes(LS.combo))comboBanner(LS.combo);
  }else{LS.mistakes++;LS.combo=0;sfx.bad();buzz();if(!ex.retry&&ex.t!=='match')LS.ex.push({t:ex.t,it:ex.it,retry:true})}
  renderCombo(ok);setProgress((LS.i+1)/LS.ex.length);
  let n=0;const s=()=>`class="st" style="--i:${n++}"`;
- let inner=`<div class="fb-h"><span class="ic">${ic(ok?'check':'close')}</span><span>${ok?(ex.t==='match'?'¡Todo emparejado!':pick(PRAISE)):pick(MISS)}</span></div>`;
+ let inner=`<div class="fb-h"><span class="ic">${ic(ok?'check':'close')}</span><span>${ok?(ex.t==='match'?(d.partial?`Emparejado, con ${d.partial} ${d.partial===1?'error':'errores'}`:'¡Todo emparejado!'):pick(PRAISE)):pick(MISS)}</span></div>`;
  if(it){
   const ans=ex.t==='mcES2EN'?it.en:it.es;
   if(ok&&d.note==='accent')inner+=`<p ${s()}><span class="fb-p">Watch the accent: <b>${esc(it.es)}</b></span></p>`;
   if(ok&&d.note==='typo')inner+=`<p ${s()}><span class="fb-p">Small typo. It’s <b>${esc(it.es)}</b></span></p>`;
+  if(!ok&&d.note==='enye')inner+=`<p ${s()}><span class="fb-p">So close! Remember the <b>ñ</b>: tap it in the accent keys.</span></p>`;
   if(!ok)inner+=`<div ${s()}><div class="fb-l">Correct answer</div><div class="fb-a">${esc(ans)}</div></div>`;
   inner+=`<div class="fb-m st" style="--i:${n++}">${spk(it.es,'sm')}<span><b>${esc(it.es)}</b> · ${esc(it.en)}</span></div>`;
   if(!ok&&SAMPLE_STATE==='ready')inner+=`<button class="mini why st" style="--i:${n++}" data-act="why">${ic('sparkle')}¿Por qué? Ask AI</button><div class="why-out" id="whyOut" aria-live="polite"></div>`;
  }
  inner+=`<button class="btn block ${ok?'c-good':'c-bad'} st" style="--i:${n++}" data-act="go" id="go2">Continuar</button>`;
- const fb=$('#fb');fb.className='fb '+(ok?'good':'bad');fb.innerHTML=`<div class="fb-in">${inner}</div>`;fb.hidden=false;OV.classList.add('fbopen');
+ const fb=$('#fb');fb.className='fb '+(ok?'good':'bad');fb.innerHTML=`<div class="fb-in">${inner}</div>`;fb.hidden=false;OV.classList.add('fbopen');fitFb(fb);
  $('#ovFoot').innerHTML='';
 }
 function finishLesson(){
@@ -1888,7 +1970,7 @@ function flyCard(r,dx=0,dy=0,vx=0,sgn=1){
  a.onfinish=()=>{RV.swiped=true;rateRv(r)};
 }
 function rateRv(r){
- if(!RV)return;const key=RV.key,c=S.cards[key];if(!c){RV.busy=false;return}
+ if(!RV)return;const key=RV.key,c=S.cards[key];if(!c){RV.queue.shift();RV.done.add(key);renderRv();return}
  if(!RV.practice)S.cards[key]=schedule(c,r);
  RV.queue.shift();RV.reps[key]=(RV.reps[key]||0)+1;
  if(r==='again'&&RV.reps[key]<3)RV.queue.push(key);else RV.done.add(key);
@@ -1919,7 +2001,9 @@ function sylUnits(w){
  return out;
 }
 function syllabify(word){
- const w=String(word).toLowerCase().replace(/[^a-záéíóúüñ]/g,'');if(!w)return [];
+ let raw=String(word).toLowerCase();const dg=stripP(raw).trim();
+ if(/^\d+$/.test(dg)&&NUMW[dg])raw=NUMW[dg];
+ const w=raw.replace(/[^a-záéíóúüñ]/g,'');if(!w)return dg?[dg]:[];
  const groups=[];
  for(const x of sylUnits(w)){const last=groups[groups.length-1];
   if(x.t==='V'){if(last&&last.type==='N'&&!(strongV(last.s[last.s.length-1])&&strongV(x.s)))last.s+=x.s;else groups.push({type:'N',s:x.s})}
@@ -1941,7 +2025,7 @@ function syllabify(word){
  return syl.length?syl:[w];
 }
 function stressIdx(syl){const a=syl.findIndex(s=>/[áéíóú]/.test(s));if(a>=0)return a;if(syl.length<2)return 0;const last=syl[syl.length-1];return /[aeiouns]$/.test(last)?syl.length-2:syl.length-1}
-const sylPlain=phrase=>phrase.split(/\s+/).filter(w=>stripP(w).trim()).map(w=>{const s=syllabify(w),k=stressIdx(s);return s.map((x,j)=>j===k?x.toUpperCase():x).join('-')}).join(' ');
+const sylPlain=phrase=>prWords(phrase).map(w=>{const s=syllabify(w),k=stressIdx(s);return s.map((x,j)=>j===k?x.toUpperCase():x).join('-')}).join(' ');
 const SOUNDS=[
  {id:'vocales',k:'a e i o u',short:'Short and pure',t:'Vocales · Vowels',b:'Five short, pure vowels that never slide. Say “e” without the “ay” glide of English “day,” and “o” without the “ow” of “go.” Keep unstressed vowels just as clear.',ex:['casa','mesa','libro','todo','uno']},
  {id:'r',k:'r',short:'Quick tap',t:'R suave · Tap r',b:'Between vowels and at the end of a syllable, r is one quick tap of the tongue behind your top teeth, like the “tt” in American “butter” or “water.”',ex:['pero','cara','para','hablar'],test:w=>/r/.test(w.replace(/rr/g,'').replace(/^r/,'').replace(/([lns])r/g,'$1'))},
@@ -1959,8 +2043,10 @@ const SOUNDS=[
 ];
 const SND=Object.fromEntries(SOUNDS.map(s=>[s.id,s]));
 function soundsIn(phrase){const ws=phrase.toLowerCase().split(/\s+/).map(w=>w.replace(/[^a-záéíóúüñ]/g,'')).filter(Boolean);return SOUNDS.filter(s=>s.test&&ws.some(w=>s.test(w)))}
-function soundTipFor(word){const w=word.toLowerCase().replace(/[^a-záéíóúüñ]/g,'');const s=SOUNDS.find(x=>x.test&&x.test(w));const syl=syllabify(w),k=stressIdx(syl);const st=syl.map((x,j)=>j===k?x.toUpperCase():x).join('-');return s?`${s.k}: ${s.b.split('. ')[0].replace(/\.$/,'')}. Stress: ${st}.`:`Stress: ${st}. Keep the vowels short and pure.`}
+function soundTipFor(word){const raw=String(word).toLowerCase(),dg=stripP(raw).trim(),w=(/^\d+$/.test(dg)?(NUMW[dg]||''):raw).replace(/[^a-záéíóúüñ]/g,'');const s=SOUNDS.find(x=>x.test&&x.test(w));const syl=syllabify(w),k=stressIdx(syl);const st=syl.map((x,j)=>j===k?x.toUpperCase():x).join('-');const sp=st?` Stress: ${st}.`:'';return s?`${s.k}: ${s.b.split('. ')[0].replace(/\.$/,'')}.${sp}`:`${sp.trim()?sp.trim()+' ':''}Keep the vowels short and pure.`}
 const NUMW={'0':'cero','1':'uno','2':'dos','3':'tres','4':'cuatro','5':'cinco','6':'seis','7':'siete','8':'ocho','9':'nueve','10':'diez','11':'once','12':'doce','15':'quince','20':'veinte','25':'veinticinco','30':'treinta','100':'cien'};
+/* the words shown on screen; splits on dashes exactly like wnorm so word i on screen is word i in diffWords */
+const prWords=s=>String(s).split(/[\s\-–—]+/).filter(w=>stripP(w).trim());
 const wnorm=s=>deacc(stripP(String(s).toLowerCase()).replace(/[-–—]/g,' ')).split(/\s+/).filter(Boolean).map(w=>NUMW[w]||w);
 function diffWords(target,heard){
  const T=wnorm(target),H=wnorm(heard),n=T.length,m=H.length;
@@ -1987,8 +2073,8 @@ async function startRec(){
  if(!CAN_REC)return;recWanted=true;if(MR_URL){URL.revokeObjectURL(MR_URL);MR_URL=null}
  try{const st=await navigator.mediaDevices.getUserMedia({audio:true});
   if(!recWanted){st.getTracks().forEach(t=>t.stop());return}
-  const chunks=[],mr=new MediaRecorder(st);mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
-  mr.onstop=()=>{meterStop();st.getTracks().forEach(t=>t.stop());MR_URL=chunks.length?URL.createObjectURL(new Blob(chunks,{type:mr.mimeType||'audio/webm'})):null;MR=null};
+  const chunks=[],mr=new MediaRecorder(st),forI=PR?PR.i:-1;mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+  mr.onstop=()=>{meterStop();st.getTracks().forEach(t=>t.stop());MR_URL=chunks.length&&(!PR||PR.i===forI)?URL.createObjectURL(new Blob(chunks,{type:mr.mimeType||'audio/webm'})):null;MR=null};
   mr.start();MR=mr;meterStart(st);
  }catch(e){MR=null}
 }
@@ -2001,6 +2087,7 @@ function meterStart(st){
 }
 function meterStop(){if(!MTR)return;cancelAnimationFrame(MTR.raf);try{MTR.ctx.close()}catch(e){}if(MTR.btn){MTR.btn.classList.remove('metered');MTR.btn.style.removeProperty('--lvl')}MTR=null}
 function stopRec(){recWanted=false;try{if(MR&&MR.state!=='inactive')MR.stop()}catch(e){}}
+function clearRec(){if(MR_URL){URL.revokeObjectURL(MR_URL);MR_URL=null}}
 function playMine(){if(!MR_URL){toast('No recording yet. Tap the mic and say it first.');return}try{hush();new Audio(MR_URL).play()}catch(e){}}
 function listen({btn,onText,onEnd}){
  if(!CAN_SR)return;
@@ -2038,8 +2125,8 @@ function renderPr(){
  if(old&&!REDUCED){old.classList.add('out');$('#ovFoot').innerHTML='';setTimeout(()=>{if(PR&&PR.items[PR.i]===it)drawPr(it)},170)}else drawPr(it);
 }
 function drawPr(it){
- setProgress(PR.i/PR.items.length);$('#rvCount').textContent=`${PR.i+1}/${PR.items.length}`;
- const words=it.es.split(/\s+/).filter(w=>stripP(w).trim());
+ clearRec();setProgress(PR.i/PR.items.length);$('#rvCount').textContent=`${PR.i+1}/${PR.items.length}`;
+ const words=prWords(it.es);
  const syl=words.map(w=>{const s=syllabify(w),k=stressIdx(s);return `<span class="syw">${s.map((x,j)=>`<span${j===k&&s.length>1?' class="stress"':''}>${esc(x)}</span>`).join('<i>·</i>')}</span>`}).join(' ');
  const snds=soundsIn(it.es).slice(0,4);
  $('#ovBody').innerHTML=`<div class="ex"><div class="ex-k st" style="--i:0">Escucha y repite · <span class="muted">Listen, then say it</span></div>
@@ -2061,7 +2148,7 @@ function prFoot(mode){
 function prCheck(){
  if(!PR)return;const it=PR.items[PR.i],ta=$('#sayIn'),heard=ta.value.trim();if(!heard)return;
  const d=diffWords(it.es,heard);PR.best[PR.i]=Math.max(PR.best[PR.i]||0,d.score);PR.last={heard,d};
- const words=it.es.split(/\s+/).filter(w=>stripP(w).trim()),pct=Math.round(d.score*100);
+ const words=prWords(it.es),pct=Math.round(d.score*100);
  if(d.score>=.8&&!PR.awarded.has(PR.i)){PR.awarded.add(PR.i);PR.xp+=2;addXP(2)}
  const msg=pct===100?'¡Perfecto! Dictation got every word.':pct>=80?'¡Muy bien! Almost all of it came through.':pct>=50?'Vas bien. A few words need work.':'Sigue practicando. Listen again and try a little slower.';
  const miss=d.pairs.slice(0,4).map(p=>`<li><b>${esc(words[p.t]||'')}</b> ${p.h?`came out as “${esc(p.h)}”`:'didn’t come through'}<br><span class="muted">${esc(soundTipFor(words[p.t]||''))}</span></li>`).join('');
@@ -2076,11 +2163,11 @@ function prCheck(){
  if(d.score>=.8){sfx.good();if(!REDUCED){const c=rectC($('.pr-words'));burst(c.x,c.y,pct===100?28:16,[cssVar('good'),cssVar('sol'),cssVar('jade')])}}else{sfx.bad();buzz()}
  setTimeout(()=>{const b=$('#ovBody'),res=$('#prRes');if(b&&res)b.scrollTo({top:res.offsetTop-80,behavior:REDUCED?'auto':'smooth'})},120);
 }
-function prRetry(){const ta=$('#sayIn');if(!ta)return;$('#prRes').innerHTML='';ta.readOnly=false;ta.value='';prFoot('ask');ta.focus();$('#ovBody').scrollTo({top:0,behavior:REDUCED?'auto':'smooth'});speak(PR.items[PR.i].es)}
+function prRetry(){const ta=$('#sayIn');if(!ta)return;clearRec();$('#prRes').innerHTML='';ta.readOnly=false;ta.value='';prFoot('ask');ta.focus();$('#ovBody').scrollTo({top:0,behavior:REDUCED?'auto':'smooth'});speak(PR.items[PR.i].es)}
 function prNext(){if(!PR)return;PR.i++;renderPr()}
 async function prAI(){
  if(!PR||!PR.last)return;const it=PR.items[PR.i],out=$('#prAIOut'),btn=$('[data-act="prAI"]');if(!out)return;btn.disabled=true;out.innerHTML='<span class="shimmer">Luz is listening back…</span>';
- const words=it.es.split(/\s+/).filter(w=>stripP(w).trim()),{heard,d}=PR.last;
+ const words=prWords(it.es),{heard,d}=PR.last;
  const prompt=`You are a friendly Mexican Spanish pronunciation coach helping an English speaker.
 Target phrase: "${it.es}" (${it.en})
 Syllables, stressed one in capitals: ${sylPlain(it.es)}
@@ -2130,7 +2217,10 @@ function startChat(id,el){
  <div class="ov-body" id="ovBody"><div class="chat" id="chatLog"><div class="chat-intro c-${sc.c}"><span class="ic">${ic(sc.ic)}</span><div><b>Goal</b><span>${esc(sc.goal)}</span></div></div></div></div>
  <div class="ov-foot chat-foot"><div class="foot-in"><div class="mic-hint" id="micHint" ${CH.voice?'':'hidden'}>${ic('mic')}<span>Tap the box, then your keyboard’s mic, and talk in Spanish.</span><button class="linkish" data-act="micHelp">How?</button></div><div class="ideas" id="ideas"></div><div id="chatAcc" hidden>${accentsHtml('chatIn')}</div><div class="composer">${CAN_SR?`<button class="acc-t mic-t" data-act="chatMic" aria-label="Talk"><span hidden></span>${ic('mic')}</button>`:''}<button class="acc-t" data-act="accToggle" aria-pressed="false" aria-label="Accent keys" data-keepfocus>á</button><textarea id="chatIn" rows="1" placeholder="Escribe en español… (English is ok)" aria-label="Message" enterkeyhint="send"></textarea><button class="send" data-act="chatSend" id="sendBtn" aria-label="Send">${ic('send')}</button></div></div></div>`;
  const ta=$('#chatIn');
- ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px';updSend()});
+ ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,120)+'px';
+  /* Voz mode assumes keyboard dictation, but a message typed key by key isn't dictated: count edits that grow the text by 1-2 characters */
+  if(CH){const d=ta.value.length-(CH.prevLen||0);if(d>=1&&d<=2)CH.keys=(CH.keys||0)+d;CH.prevLen=ta.value.length;if(!ta.value){CH.keys=0;CH.dictated=false}}
+  updSend()});
  ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();sendChat()}});
  setTimeout(()=>{if(CH)aiTurn()},REDUCED?0:450);
 }
@@ -2188,15 +2278,18 @@ function sendChat(){
  if(!CH||CH.busy)return;const ta=$('#chatIn'),text=ta.value.trim();if(!text)return;
  const i=CH.msgs.length;CH.msgs.push({role:'me',text});CH.lastMe=i;
  $('#chatLog').insertAdjacentHTML('beforeend',`<div class="msg me"><div class="msg-b">${esc(text)}</div></div><div id="fx${i}" hidden></div>`);
- CH.turns.push({role:'user',content:text+((CH.voice||CH.dictated)?' [dictated]':'')});CH.dictated=false;
+ const typed=(CH.keys||0)>=text.length*.6;
+ CH.turns.push({role:'user',content:text+((CH.dictated||(CH.voice&&!typed))?' [dictated]':'')});CH.dictated=false;CH.keys=0;CH.prevLen=0;
  while(CH.turns.length>31)CH.turns.splice(1,2);
  CH.count++;CH.xp+=2;addXP(2);sfx.tap();
  ta.value='';ta.style.height='auto';drawIdeas([]);chatScroll();aiTurn();
 }
 async function chatFeedback(){
- if(!CH)return;const sc=CH.sc;
+ if(!CH)return;const sc=CH.sc,mine=CH,at=CH.count;
+ const loading=()=>openSheet(`<div class="k tint c-rosa">Feedback · ${esc(sc.title)}</div><h2 class="sheet-t">¿Cómo te fue?</h2><div id="fbkBody" style="margin-top:14px"><span class="shimmer">Luz is reading your conversation…</span></div>`);
+ if(mine.fbBusy){loading();return}mine.fbBusy=true;
  const tr=CH.msgs.filter(m=>m.role==='me'||(m.es&&!m.err)).map(m=>m.role==='me'?`Learner: ${m.text}`:`Partner: ${m.es}`).join('\n').slice(-6000);
- openSheet(`<div class="k tint c-rosa">Feedback · ${esc(sc.title)}</div><h2 class="sheet-t">¿Cómo te fue?</h2><div id="fbkBody" style="margin-top:14px"><span class="shimmer">Luz is reading your conversation…</span></div>`);
+ loading();
  const prompt=`You are a kind, specific Mexican Spanish teacher. A total beginner (A1) learning Mexican Spanish just finished this role-play.
 Scenario: ${sc.title} (${sc.sub}). ${sc.patient?'The learner played a clinician talking with a Spanish-speaking patient. Judge clarity, correct use of usted, and whether they asked the key questions.':''}
 Transcript:
@@ -2216,9 +2309,10 @@ Include at most 3 fixes, and only real mistakes from the learner's lines (count 
   ${fixes.length?`<h3 class="sheet-h">Para mejorar</h3><ul class="fbk-list">${fixes.map(f=>`<li style="--i:${k++}">${f.said?`<span class="said">${esc(f.said)}</span><br>`:''}<span class="better">${esc(f.better)}</span>${f.why?`<br><span class="muted">${esc(f.why)}</span>`:''}</li>`).join('')}</ul>`:''}
   ${phr.length?`<h3 class="sheet-h">Frases útiles</h3><ul class="fbk-list">${phr.map(a=>`<li class="fbk-ph" style="--i:${k++}"><span><b>${esc(a[0])}</b><br><span class="muted">${esc(a[1])}</span></span><button class="mini" data-act="addCard" data-es="${esc(a[0])}" data-en="${esc(a[1])}">${ic('plus')}Add</button></li>`).join('')}</ul>`:''}
   <button class="btn block c-azul" style="margin-top:18px" data-act="closeSheet">Seguir practicando</button>`;
-  if(CH){CH.xp+=5}addXP(5);
+  if(at>(mine.fbAt||0)){mine.fbAt=at;mine.xp+=5;addXP(5)}
   if(score>=4&&!REDUCED){const s=$('.fbk-score');if(s){const c=rectC(s);setTimeout(()=>burst(c.x,c.y,24,[cssVar('sol'),cssVar('rosa')]),500)}}
  }catch(e){const body=$('#fbkBody');if(body)body.innerHTML=`<p class="mk-status err">${esc(aiErr(e).msg)}</p><button class="btn block c-azul" style="margin-top:14px" data-act="closeSheet">Close</button>`}
+ finally{mine.fbBusy=false}
 }
 
 /* ================= actions ================= */
@@ -2240,7 +2334,7 @@ const ACT={
  closeSheet(){closeSheet()},
  scen(t,v){sfx.tap();startChat(v,t)},
  cdel(t,v){t.outerHTML=`<span class="cl-confirm">Delete? <button class="mini" data-act="cdelYes" data-v="${v}" style="background:var(--bad);color:var(--on-color)">Yes</button><button class="mini" data-act="cdelNo" data-v="${v}">No</button></span>`},
- cdelYes(t,v){const box=$('#cl-'+v);S.custom=S.custom.filter(c=>c.id!==v);delete S.done[v];save();const done=()=>{const l=$('#customList');if(l)l.innerHTML=S.custom.map(customCard).join('')};if(box&&!REDUCED){box.classList.add('gone');setTimeout(done,280)}else done()},
+ cdelYes(t,v){const box=$('#cl-'+v);S.custom=S.custom.filter(c=>c.id!==v);delete S.done[v];S.gone=S.gone||{};S.gone[v]=Date.now();save();const done=()=>{const l=$('#customList');if(l)l.innerHTML=S.custom.map(customCard).join('')};if(box&&!REDUCED){box.classList.add('gone');setTimeout(done,280)}else done()},
  cdelNo(t,v){const l=$('#customList');if(l)l.innerHTML=S.custom.map(customCard).join('')},
  addCard(t){const ok=addCard(t.dataset.es,t.dataset.en);if(ok){save();refreshChrome()}t.innerHTML=`${ic('check')}${ok?'Added':'In deck'}`;t.disabled=true;if(ok&&!REDUCED){const c=rectC(t);burst(c.x,c.y,12)}},
  goal(t,v){S.settings.goal=+v;save();segSet(t);renderHeader();setTimeout(()=>{if(curTab==='yo'&&OV.hidden)renderView()},320)},
@@ -2249,7 +2343,7 @@ const ACT={
  voiceTest(){speak('Hola, me llamo Luz. ¿Cómo estás?')},
  reset(){$('#resetBox').innerHTML=`<div class="confirm-row"><button class="btn sm c-bad" data-act="resetYes">Erase all</button><button class="btn sm ghost" data-act="resetNo">Cancel</button></div>`},
  resetNo(){const b=$('#resetBox');if(b)b.innerHTML=`<button class="btn sm ghost" data-act="reset">Reset</button>`},
- resetYes(){const set=S.settings;S=fresh();S.settings=set;save();shownXP=null;renderAll('load');toast('Progress reset. ¡Empecemos de nuevo!')},
+ resetYes(){const set=S.settings,gone=S.gone||{},sa=S.settingsAt;S=fresh();S.settings=set;S.gone=gone;S.settingsAt=sa;S.resetAt=Date.now();save();shownXP=null;renderAll('load');toast('Progress reset. ¡Empecemos de nuevo!')},
  startRv(t){sfx.tap();startReview(false,t)},
  practiceRv(t){sfx.tap();startReview(true,t)},
  skipCurtain(){liftCurtain()},
@@ -2263,7 +2357,7 @@ const ACT={
   const a=LS.mt.el;LS.mt=null;
   if(a.dataset.v.split(':')[1]===key){a.classList.remove('sel');a.classList.add('ok');t.classList.add('ok');LS.matched++;tone(880+LS.matched*90,0,.12,'triangle',.08);
    if(!REDUCED){const p=rectC(a),q=rectC(t);burst((p.x+q.x)/2,(p.y+q.y)/2,12,[cssVar('good'),cssVar('sol')])}
-   if(LS.matched===ex.set.length){if(LS.matchMiss){LS.mistakes++;LS.combo=0}setTimeout(()=>{if(LS&&LS.state==='q')feedback(true,{})},380)}}
+   if(LS.matched===ex.set.length){const miss=LS.matchMiss;setTimeout(()=>{if(LS&&LS.state==='q')feedback(true,{partial:miss})},380)}}
   else{a.classList.add('no');t.classList.add('no');LS.matchMiss++;sfx.bad();setTimeout(()=>{a.classList.remove('no','sel');t.classList.remove('no','sel')},440)}
  },
  go(){if(LS){if(LS.state==='q')check();else if(LS.state==='fb'){LS.i++;renderEx()}else if(LS.state==='done')closeOv()}},
@@ -2281,8 +2375,8 @@ const ACT={
  /* chat */
  chatSend(){sendChat()},
  chatStop(){if(CH&&CH.ctl)CH.ctl.abort()},
- retryAi(t){const el=t.closest('.msg');if(el)el.remove();if(CH){CH.msgs.pop();aiTurn()}},
- idea(t,v){const ta=$('#chatIn');ta.value=v;ta.dispatchEvent(new Event('input'));speak(v)},
+ retryAi(t){if(!CH||CH.busy)return;const el=t.closest('.msg'),i=el?+el.id.slice(1):-1;if(i!==CH.msgs.length-1){t.remove();return}CH.msgs[i].err=CH.msgs[i].err||'retried';el.remove();aiTurn()},
+ idea(t,v){const ta=$('#chatIn');ta.value=v;if(CH)CH.keys=1e9;ta.dispatchEvent(new Event('input'));speak(v)},
  showEn(t){t.classList.add('show')},
  saveMsg(t,v){const m=CH&&CH.msgs[+v];if(!m||!m.en)return;const ok=addCard(m.es.slice(0,140),m.en.slice(0,140));if(ok){save();refreshChrome()}t.innerHTML=`${ic('check')}${ok?'Guardada':'In deck'}`;t.disabled=true;if(ok&&!REDUCED){const c=rectC(t);burst(c.x,c.y,12)}toast(ok?'Saved to your flashcards':'Already in your deck')},
  accToggle(t){const box=$('#chatAcc');box.hidden=!box.hidden;t.setAttribute('aria-pressed',String(!box.hidden))},
@@ -2290,7 +2384,7 @@ const ACT={
  voiceMode(t){if(!CH)return;CH.voice=!CH.voice;S.settings.voiceChat=CH.voice;save();t.setAttribute('aria-pressed',String(CH.voice));const h=$('#micHint');if(h)h.hidden=!CH.voice;sfx.tap();if(CH.voice){const m=[...CH.msgs].reverse().find(x=>x.role==='ai'&&x.es&&!x.err);if(m)speak(m.es)}else hush()},
  /* pronunciation */
  prStart(t){sfx.tap();prPicker(t)},
- prGo(t,v){closeSheet(true);startPractice(v)},
+ prGo(t,v){sheetFocus.prev=null;closeSheet(true);startPractice(v)},
  prCheck(){prCheck()},
  prRetry(){prRetry()},
  prNext(){prNext()},
@@ -2319,6 +2413,7 @@ function showWelcome(){
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t||t.disabled)return;const f=ACT[t.dataset.act];if(f)f(t,t.dataset.v,e)});
 document.addEventListener('pointerdown',e=>{if(e.target.closest('[data-keepfocus]'))e.preventDefault()});
 document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&$('#sheetHost').firstChild){e.preventDefault();closeSheet();return}
  if(OV.hidden||$('#sheetHost').firstChild)return;
  if($('#curtain:not(.out)')){if(e.key==='Enter'||e.key===' '){e.preventDefault();liftCurtain()}return}
  const inField=e.target.matches('input,textarea');
@@ -2333,7 +2428,7 @@ document.addEventListener('keydown',e=>{
  }
 });
 window.addEventListener('resize',()=>{clearTimeout(buildPicado.t);buildPicado.t=setTimeout(()=>{buildPicado();if(curTab==='aprender'&&OV.hidden)drawTrails()},150)});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&OV.hidden)renderAll()});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&OV.hidden)softRender()});
 if('IntersectionObserver' in window){try{new IntersectionObserver(([en])=>{$('#topbar').classList.toggle('stuck',!en.isIntersecting)},{threshold:0}).observe($('#picado'))}catch(e){}}
 if('ResizeObserver' in window){let raf=0;try{new ResizeObserver(()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{if(curTab==='aprender'&&OV.hidden)drawTrails()})}).observe(VIEW)}catch(e){}}
 try{document.fonts&&document.fonts.ready.then(()=>{if(curTab==='aprender')drawTrails()})}catch(e){}
